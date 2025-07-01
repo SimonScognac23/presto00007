@@ -1194,6 +1194,296 @@ class MakeUserRevisor extends Command
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+// ███████╗
+// ╚════██║
+//     ██╔╝
+//    ██╔╝ 
+//   ██╔╝  
+//  ██╔
+//   
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// USER STORY 7
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// USER STORY #7 - GOOGLE VISION API
+
+// 1
+
+// INSTALLAZIONE & MIGRAZIONE
+
+// La User Story 7 ci richiede di utilizzare l’intelligenza artificiale di Google per fare ulteriori controlli sulle immagini caricate dagli utenti,
+//  così da fornire un tool di supporto al lavoro dei revisor
+
+// Prima di partire, controlla i materiali e scarica il json delle chiavi API di Google Vision. Inserisci il file nella root del progetto. 
+// Assicurati che il file si chiami google_credential.json .
+
+
+//  COME FARE ------------------>  google_credential.json <-----------------------
+
+
+// ✅ 1. Crea un progetto su Google Cloud Console
+// Vai su: https://console.cloud.google.com/
+//
+// Accedi con il tuo account Google.
+//
+// In alto, clicca su "Seleziona progetto" → "Nuovo progetto".
+//
+// Dai un nome al progetto e clicca su Crea.
+
+
+// ✅ 2. Abilita l'API di Google Cloud Vision
+// Dopo aver creato il progetto, assicurati che sia selezionato.
+//
+// Vai a questa pagina per abilitare l'API:
+// 👉 Google Cloud Vision API
+//
+// Clicca su "Abilita".
+
+
+// ✅ 3. Crea una chiave API (account di servizio)
+// Vai a: IAM & Amministrazione → Account di servizio
+//
+// Clicca su "Crea account di servizio".
+//
+// Dai un nome (es. vision-access), clicca su Crea e continua.
+//
+// Puoi ignorare i permessi (a meno che tu non abbia bisogno di qualcosa di specifico) → Continua → Fine.
+//
+// Ora vedrai l’account di servizio creato.
+
+
+// ✅ 4. Crea e scarica la chiave JSON
+// Nella lista degli account di servizio, clicca sul nome dell’account appena creato.
+//
+// Vai alla sezione Chiavi → clicca su "Aggiungi chiave" → "Crea nuova chiave".
+//
+// Seleziona JSON → clicca Crea.
+//
+// Il file verrà scaricato automaticamente.
+// Rinominalo (se necessario) in: google_credential.json
+
+
+// ✅ 5. Inserisci il file nella root del progetto
+// Sposta google_credential.json nella cartella principale del tuo progetto,
+// cioè dove si trova il file main.py, app.js, index.js o simile.
+
+
+//  !!!!!! Inserire il file nella root del progetto - quindi in nessuna cartella specifica - ti permette di rendere il file facile da recuperare.
+
+//  COME FARE FINE ------------------>  google_credential.json <-----------------------
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+// 2
+
+//  Una volta scaricato, vai nel file .gitignore e inserisci il nome del json.
+
+// !!! Inserire google_credential.json in .gitignore e' fondamentale! Infatti se il file viene pushato su una repository online, le
+//  chiavi vengono automaticamente bloccate e questo puo' creare problemi a te e ai tuoi colleghi.
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// 3
+
+// Fatto questo, installiamo nel nostro progetto il pacchetto Cloud Vision di Google che ci permettera' di interagire facilmente con le
+// funzionalita' di visione artificiale di Google Cloud:
+
+    //  -------> composer require google/cloud-vision -w  <---------
+    //  !!!!!!! Cloud Vision e' un wrapper PHP, ovvero un pezzo di codice che funge da “intermediario” tra un’applicazione PHP e un’altra libreria
+
+
+
+
+
+   //            ERRORE SSL
+
+   //   PER WINDOWS - per evitare l’errore certificato SSL:
+   //   recarsi al sito curl - Extract CA Certs from Mozilla e scaricare il primo file:
+
+   // -------  The mozilla CA certificate store in PEM format (around 200 KB uncompressed): cacert.PEM  ------
+
+   //   Spostare il file nella cartella di php
+   //   Recarsi in php.ini e modificare la riga ricordandosi di togliere il :
+   //  ----- 1 curl.cainfo = 'percorso/del/file/nella/vostra/cartella/php/   ------
+
+
+   //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   // 4
+
+   // Come funziona Google Vision API:
+
+   // Google Cloud Vision API è un servizio di machine learning che permette di estrarre informazioni dalle immagini. 
+   // Utilizza modelli preaddestrati su enormi dataset di immagini per eseguire diverse attività di riconoscimento: ciò permette di identificare ed estrarre
+   // caratteristiche specifiche dall'immagine di input.
+
+   // In particolare, a noi interessa la possibilità di rilevare:
+   // etichette per meglio definire e descrivere l’immagine e il suo contenuto;
+   // contenuti potenzialmente inappropriati.
+
+
+   //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   // 5
+
+   // Avremo bisogno di salvare i dati rilevati dall’API: per fare ciò creiamo una nuova migrazione.
+
+   // ----->  php artisan make:migration add_google_vision_fields_to_images_table    <-------
+
+   //  Modifichiamo quindi questa migrazione appena creata: vedi file e lanciamo la migrazione --> php artisan migrate
+
+
+   //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+   // 6
+
+   //  CREAZIONE DEL JOB DI VALUTAZIONE DELL’IMMAGINE
+
+   // Creiamo il job:
+   //                ----->   php artisan make:job GoogleVisionSafeSearch  <------
+
+   //   Come abbiamo visto, questo comando creerà un nuovo file nella directory app/Jobs .
+   //   Modifichiamo il job appena creato, -------> GoogleVisionSafeSearch.php :  <--------------
+
+
+   // E importiamo le classi :
+
+   //    use App\Models\Image;
+   //    use Google\Cloud\Vision\V1\ImageAnnotatorClient;
+
+
+   //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   //  7
+
+   //  INSTALLAZIONE DELLE BOOTSTRAP ICONS
+
+   // Ricordiamoci di importare le icone di bootstrap nel nostro progetto per poterle visualizzare correttamente:
+
+   //  ------>  npm i bootstrap-icons    <--------  
+
+   //  E aggiorniamo app.css :  ----->  @import 'bootstrap-icons';   <------
+
+
+   //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   //  8
+
+   // AGGIORNAMENTO DELLA LOGICA DI SALVATAGGIO
+
+   // Come in precedenza, vogliamo che questo job parta al caricamento dell’articolo e, quindi, delle sue immagini.
+
+   // Per questo motivo, modifichiamo la funzione store() in ------->CreateArticleForm.php : <------------------
+
+   // E importiamo la classe: --->  use App\Jobs\GoogleVisionSafeSearch;  <----
+
+   ///   !!!! Avendo noi fatto delle modifiche sui job, interrompiamo il terminale delle code (ctrl + C o chiudendolo del tutto), puliamo la cache
+   ///   e facciamolo ripartire.
+   ///   Questo procedimento andrà ripetuto ad ogni modifica del job.
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   //  9
+  
+
+   //  Adesso avremo bisogno di un modo di visualizzare questi nuovi dati salvati nel database.
+
+   //  Andiamo in ----> revisor/index.blade.php :  <-----
+
+
+   // !!!!!!!
+   // Quella qui esposta è solo una delle possibilità di resa grafica di questa user story.
+   // È importante però ricordarsi che sarà necessario trovarsi all’interno di un foreach delle immagini per poter accedere ai dati della
+   // singola immagine.
+   // !!!!!!!
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    //   10
+   
+
+    // CREAZIONE DEL JOB PER ETICHETTARE L’IMMAGINE
+
+    // Creiamo adesso un secondo job: avrà un funzionamento molto simile al precedente, ma si occuperà di rilevare e salvare nel database le
+    // etichette delle singole immagini nella colonna labels .
+
+    // Scriviamo dunque nel terminale:
+    // -----> php artisan make:job GoogleVisionLabelImage <------------
+
+    //  E modifichiamo il file appena generato, -------> GoogleVisionLabelImage.php :   <------------
+
+    //  E importiamo le classi:
+
+    //  use App\Models\Image;
+    //  use Google\Cloud\Vision\V1\ImageAnnotatorClient;
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//  11
+
+//  CASTING DELLE LABELS
+
+ // Poiché questo job restituirà nel database una serie di dati, facciamo una modifica nel modello ----> Image.php <------
+ //  per garantire coerenza del tipo di
+// dato e semplificare la gestione di strutture dati complesse memorizzate nel database:   -----> function casts()  <-----
+
+ //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+        
+ //  12
+
+ //    AGGIORNAMENTO DELLA LOGICA DI SALVATAGGIO
+
+ //   Facciamo quindi in modo che il job parta dopo la creazione dell’articolo, come fatto in precedenza.
+    
+//  ---->  In CreateArticleForm.php , nella funzione store() : <-----
+
+// E importiamo la classe:
+// USE App\Jobs\GoogleVisionLabelImage;
+
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// 13
+
+// AGGIORNAMENTO DELLA REVISOR INDEX
+// Infine, gestiamo la visualizzazione di questi dati nella pagina del revisore.
+// In --------->  revisor/index.blade.php <---------------
+
+//  Come in precedenza, abbiamo aggiunto una colonna alla card generata per ogni immagine, in cui iteriamo le etichette restituite dal job.
+
+// !!!!! Prima di pushare, assicurati che google_credential.json sia in .gitignore !
+
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
 
 
 

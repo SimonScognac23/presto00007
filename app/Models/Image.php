@@ -69,7 +69,7 @@ public function getUrl($w = null, $h = null)
     return self::getUrlByFilePath($this->path, $w, $h);
 }
 
-}
+
 // Abbiamo creato due funzioni, analizziamole.
 // getUrlByFilePath() , riga 1:
 
@@ -143,13 +143,25 @@ public function getUrl($w = null, $h = null)
 
 
 
+//------------------------------------------------- USER STORY 7 PUNTO 11 INIZIO ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ protected function casts(): array
+ {
+    return [
+        'labels' => 'array',
+    ];
+ }
+
+
+// Il metodo casts() fornito da laravel consente di fare il casting: il casting in Laravel è un processo di conversione automatica dei dati tra
+// formati diversi. Viene utilizzato principalmente per convertire i valori memorizzati nel database in tipi di dati PHP più adatti per l'utilizzo nelle
+// applicazioni Laravel. Questo semplifica la gestione e la manipolazione dei dati all'interno del framework.
+// In questo caso stiamo facendo il casting della colonna labels in array.
 
 
 
+//------------------------------------------------- USER STORY 7 PUNTO 11 FINE ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-
-
-
-//------------------------------------------------- USER STORY 6 PUNTO 9 FINE ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+}

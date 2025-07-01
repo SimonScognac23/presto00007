@@ -40,14 +40,73 @@
                                        : $image->getUrl();
                             @endphp
 
-                            <div class="col-6 col-md-4 mb-4">
-                                {{-- Mostro l'immagine vera e propria --}}
-                                <img
-                                  src="{{ $url }}"
-                                  class="img-fluid rounded shadow"
-                                  style="width: 300px; height: 300px; object-fit: cover;"
-                                  alt="Immagine {{ $key + 1 }} dell’articolo {{ $article_to_check->title }}">
-                            </div>
+                 <div class="col-6 col-md-4 mb-4">
+    {{-- Mostro l'immagine vera e propria --}}
+    <img
+      src="{{ $url }}"
+      class="img-fluid rounded shadow"
+      style="width: 300px; height: 300px; object-fit: cover;"
+      alt="Immagine {{ $key + 1 }} dell’articolo {{ $article_to_check->title }}">
+</div>
+
+{{-- USER STORY 7 PUNTO 13 --}}
+<div class="col-md-5 ps-3">
+    <div class="card-body">
+        <h5>Labels</h5>
+        @if ($image->labels)
+           @foreach ($image->labels as $label)
+           #{{ $label }},
+           @endforeach
+        @else
+           <p class="fst-italic">No labels</p>
+        @endif
+    </div>
+    {{-- USER STORY 7 PUNTO 13 FINE --}}
+
+</div>
+
+{{-- USER STORY 7 PUNTO 9 --}}
+ <div class="col-md-8 p-3">
+    <div class="card-body">
+        <h5 class="card-title">Ratings</h5>
+
+        <div class="row justify-content-center">
+            <div class="col-2 text-center">{{ $image->adult }}</div>
+            <div class="col-10">adult</div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-2 text-center">{{ $image->violence }}</div>
+            <div class="col-10">violence</div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-2 text-center">{{ $image->spoof }}</div>
+            <div class="col-10">spoof</div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-2 text-center">{{ $image->racy }}</div>
+            <div class="col-10">racy</div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-2 text-center">{{ $image->medical }}</div>
+            <div class="col-10">medical</div>
+        </div>
+    </div> 
+ </div> 
+
+{{-- 
+     Come vediamo, al posto dei semplici tag img finora generati nel foreach , adesso per ogni
+     immagine associata all’articolo generiamo una
+     card, che, oltre all’immagine, che farà visualizzare le icone salvate nel database dal job.  --}}
+
+{{-- USER STORY 7 PUNTO 9 FINE --}}
+
+
+
+
                         @endforeach
                     @else
                         {{-- Se non ci sono immagini caricate, uso immagini casuali come segnaposto --}}

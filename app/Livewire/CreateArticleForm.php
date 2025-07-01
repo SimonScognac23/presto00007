@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Jobs\ResizeImage;
 use Illuminate\Support\Facades\File;
 
+use App\Jobs\GoogleVisionSafeSearch;
+use App\Jobs\GoogleVisionLabelImage;
+
 
 
 
@@ -104,6 +107,10 @@ if (count($this->images) > 0) {
         $newFileName = "articles/{$article->id}";  // USER STORY 6 PUNTO 7
         $newImage = $article->images()->create(['path' => $image->store($newFileName, 'public')]); // // USER STORY 6 PUNTO 7
         dispatch(new ResizeImage($newImage->path, 300, 300)); // USER STORY 6 PUNTO 7
+
+        dispatch(new GoogleVisionSafeSearch($newImage->id));  // USER STORY 7 PUNTO 8
+
+        dispatch(new GoogleVisionLabelImage($newImage->id));  // USER STORY 7 PUNTO 12
 
     }
      File::deleteDirectory(storage_path('/app/livewire-tmp')); // USER STORY 6 PUNTO 7
