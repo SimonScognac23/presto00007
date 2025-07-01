@@ -9,6 +9,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Spatie\Image\Image;  // USER STORY 6 PUNTO 4
+use App\Helpers\CropPosition;
+
 
 class ResizeImage implements ShouldQueue
 {

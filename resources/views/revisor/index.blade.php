@@ -55,47 +55,58 @@
         <h5>Labels</h5>
         @if ($image->labels)
            @foreach ($image->labels as $label)
-           #{{ $label }},
+               <span class="badge bg-primary me-1">#{{ $label }}</span>
            @endforeach
         @else
            <p class="fst-italic">No labels</p>
         @endif
     </div>
-    {{-- USER STORY 7 PUNTO 13 FINE --}}
-
+{{-- USER STORY 7 PUNTO 13 FINE --}}
 </div>
 
 {{-- USER STORY 7 PUNTO 9 --}}
- <div class="col-md-8 p-3">
+<div class="col-md-8 p-3">
     <div class="card-body">
         <h5 class="card-title">Ratings</h5>
 
-        <div class="row justify-content-center">
-            <div class="col-2 text-center">{{ $image->adult }}</div>
-            <div class="col-10">adult</div>
+        <div class="row justify-content-center align-items-center mb-2">
+            <div class="col-2 text-center fw-bold">{{ $image->adult }}</div>
+            <div class="col-10">
+                <span class="badge bg-danger">adult</span>
+            </div>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-2 text-center">{{ $image->violence }}</div>
-            <div class="col-10">violence</div>
+        <div class="row justify-content-center align-items-center mb-2">
+            <div class="col-2 text-center fw-bold">{{ $image->violence }}</div>
+            <div class="col-10">
+                <span class="badge bg-warning text-dark">violence</span>
+            </div>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-2 text-center">{{ $image->spoof }}</div>
-            <div class="col-10">spoof</div>
+        <div class="row justify-content-center align-items-center mb-2">
+            <div class="col-2 text-center fw-bold">{{ $image->spoof }}</div>
+            <div class="col-10">
+                <span class="badge bg-info text-dark">spoof</span>
+            </div>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-2 text-center">{{ $image->racy }}</div>
-            <div class="col-10">racy</div>
+        <div class="row justify-content-center align-items-center mb-2">
+            <div class="col-2 text-center fw-bold">{{ $image->racy }}</div>
+            <div class="col-10">
+                <span class="badge bg-warning text-dark">racy</span>
+            </div>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-2 text-center">{{ $image->medical }}</div>
-            <div class="col-10">medical</div>
+        <div class="row justify-content-center align-items-center mb-2">
+            <div class="col-2 text-center fw-bold">{{ $image->medical }}</div>
+            <div class="col-10">
+                <span class="badge bg-secondary">medical</span>
+            </div>
         </div>
     </div> 
- </div> 
+</div> 
+
+
 
 {{-- 
      Come vediamo, al posto dei semplici tag img finora generati nel foreach , adesso per ogni
