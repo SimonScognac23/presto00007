@@ -1469,19 +1469,60 @@ class MakeUserRevisor extends Command
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//   ██████   ████████  ████████   ██████  
+//  ██    ██      ██        ██   ██    ██ 
+//  ██    ██      ██        ██   ██    ██ 
+//  ██    ██      ██        ██   ██    ██ 
+//   ██████       ██        ██    ██████  
 
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+// 1 
+
+//  USER STORY #8 - RIMOZIONE DEI VOLTI
 
 
-   
+//  La User Story 8 ci richiede di applicare un’immagine di censura sui volti laddove siano rilevati nelle foto caricate dagli utenti.
 
 
+// JOB DI RIMOZIONE DEI VOLTI
+// Anche questa operazione vogliamo sia svolta in modalità asincrona.
+
+//  Creiamo quindi un job apposito:
+// --------->  php artisan make:job RemoveFaces  <--------------
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+//  2
+
+//   Andiamo quindi in  -----> app/Jobs/RemoveFaces.php :  <------
+//  Ricordiamoci di importare le classi
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+// 3
+
+// AGGIORNAMENTO DELLA LOGICA DI SALVATAGGIO
+
+// Una volta ultimato il codice del job, STOPPIAMO E FACCIAMO PARTIRE IL TERMINALE DELLE CODE e specifichiamo nella 
+// -----> funzione store() <--------- in
+// -------> CreateArticleForm.php <-------- quando farlo partire:
+
+// Come vediamo, invece di fare un semplice dispatch , stiamo utilizzando il metodo withChain() (riga 11).
+// In Laravel, il metodo withChain() serve ad avviare una serie di job concatenati, creando una sequenza in cui il completamento di un job
+// innesca l'esecuzione del successivo.
+// Questo ti consente di orchestrare una serie di attività in un ordine specifico, garantendo che ogni job venga eseguito solo dopo il
+// completamento riuscito del precedente.
+
+
+//  Ricordiamoci di importare la classe:
+//  ----> use App\Jobs\RemoveFaces; <----
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 

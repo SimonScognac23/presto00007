@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 
 use App\Jobs\GoogleVisionSafeSearch;
 use App\Jobs\GoogleVisionLabelImage;
+use App\Jobs\RemoveFaces;
 
 
 
@@ -106,11 +107,26 @@ if (count($this->images) > 0) {
 
         $newFileName = "articles/{$article->id}";  // USER STORY 6 PUNTO 7
         $newImage = $article->images()->create(['path' => $image->store($newFileName, 'public')]); // // USER STORY 6 PUNTO 7
-        dispatch(new ResizeImage($newImage->path, 300, 300)); // USER STORY 6 PUNTO 7
 
-        dispatch(new GoogleVisionSafeSearch($newImage->id));  // USER STORY 7 PUNTO 8
+    // VECCHIO CODICE
+    // dispatch(new ResizeImage($newImage->path, 300, 300)); // USER STORY 6 PUNTO 7
 
-        dispatch(new GoogleVisionLabelImage($newImage->id));  // USER STORY 7 PUNTO 12
+    // dispatch(new GoogleVisionSafeSearch($newImage->id));  // USER STORY 7 PUNTO 8
+
+    //dispatch(new GoogleVisionLabelImage($newImage->id));  // USER STORY 7 PUNTO 12
+
+
+    //...... USER STORY 8 PUNTO 3 INIZIO.......
+
+    // NUOVO CODICE
+    
+    RemoveFaces::withChain([
+        new ResizeImage($newImage->path, 300, 300),
+        new GoogleVisionSafeSearch ($newImage->id),
+        new GoogleVisionLabelImage ($newImage->id)
+    ])->dispatch($newImage->id);
+
+    //....... USER STORY 8 PUNTO 3 FINE...........
 
     }
      File::deleteDirectory(storage_path('/app/livewire-tmp')); // USER STORY 6 PUNTO 7
