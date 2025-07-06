@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87e0c4bf7a30c5dba6ad57c0ad2e8fc5",
+    "content-hash": "5310d9b02c129d6225ecc4c7be5aadba",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -958,16 +958,16 @@
         },
         {
             "name": "google/cloud-vision",
-            "version": "v2.0.2",
+            "version": "v1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-vision.git",
-                "reference": "5e2ed6ee24f958424e3bc14132724c569c9857fa"
+                "reference": "8d01d61c04571e2cf85f6823af45f9fcbe693b9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-vision/zipball/5e2ed6ee24f958424e3bc14132724c569c9857fa",
-                "reference": "5e2ed6ee24f958424e3bc14132724c569c9857fa",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-vision/zipball/8d01d61c04571e2cf85f6823af45f9fcbe693b9f",
+                "reference": "8d01d61c04571e2cf85f6823af45f9fcbe693b9f",
                 "shasum": ""
             },
             "require": {
@@ -1010,9 +1010,9 @@
             ],
             "description": "Cloud Vision Client for PHP",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-vision/tree/v2.0.2"
+                "source": "https://github.com/googleapis/google-cloud-php-vision/tree/v1.10.3"
             },
-            "time": "2025-05-20T19:49:54+00:00"
+            "time": "2025-01-24T21:24:06+00:00"
         },
         {
             "name": "google/common-protos",
