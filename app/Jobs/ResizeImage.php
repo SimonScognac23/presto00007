@@ -11,6 +11,8 @@ use Illuminate\Queue\SerializesModels;
 use Spatie\Image\Image;  // USER STORY 6 PUNTO 4
 use App\Helpers\CropPosition;
 
+use Spatie\Image\Enums\Unit; // USER STORY 9
+
 
 class ResizeImage implements ShouldQueue
 {
@@ -106,6 +108,33 @@ class ResizeImage implements ShouldQueue
 
      Image::load($srcPath)
         ->crop($w, $h, CropPosition::Center)
+
+        //............... USER STORY 9 PUNTO 1 INIZIO.......................
+        ->watermark(
+          base_path('resources/img/watermark.png'),
+          width: 50,
+          height: 50,
+          paddingX: 5,
+          paddingY: 5,
+          paddingUnit: Unit::Percent
+        )
+
+        // Come vediamo, abbiamo concatenato a riga 10 il metodo watermark() fornito sempre dalla classe 
+        // ---> Spatie/Image/Image <-------
+
+        //   watermark() accetta diversi parametri
+
+        // il percorso del file che vogliamo utilizzare come filigrana (utilizzate il percorso del file presente nel vostro progetto)
+        // possiamo poi specificare diversi parametri opzionali a nostro piacimento:
+        //   le dimensioni, di default prese in pixels
+        //   il padding
+        //   la posizione: di default sarà posizionato in basso a destra.
+
+
+
+        //.................... USER STORY 9 PUNTO 1 FINE............................
+
+
         ->save($destPath);
 }
 
