@@ -21,6 +21,10 @@
         <a class="btn btn-primary btn-dark" href="{{ route('create.article') }}">{{ __('ui.create_new_article') }}</a>
       @endauth
 
+      <a href="{{ route('warhammer.story') }}" class="btn btn-warning mt-3">
+  Scopri la storia di Warhammer
+</a>
+
     </div>
   </div>
 </div>

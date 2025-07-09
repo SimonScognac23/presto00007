@@ -6,6 +6,9 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\RevisorController;
 
+use App\Http\Livewire\WarhammerStory;
+
+
 
 
 
@@ -95,6 +98,16 @@ Route::get('/revisor/request', [RevisorController::class, 'becomeRevisor'])->mid
 
 //Rotta make revisor
 Route::get('/make/revisor/{user}', [RevisorController::class, 'makeRevisor'])->name('make.revisor');
+
+
+
+
+
+//-------------WARHAMMER STORY--------------------------------------------------------------------------------------------------------------------------------------------------
+
+//Rotta Warhammer Story
+Route::view('/warhammer/story', 'livewire.warhammer-story-page')->name('warhammer.story');
+
 
 
 

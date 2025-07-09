@@ -78,12 +78,6 @@ stars.forEach((star, index) => {  // per ogni stella devi rank volte creare una 
 
 
 
-
-
-
-
-
-
 //Swiper sempre per ultimo
 
 const swiper = new Swiper('.swiper1', {  // crea un nuovo oggetto di classe swiper e poi vuole una classe, ossia un selettore CSS .swiper che gli fa capire che l'elemento in questione è il div con classe swiper, ovviamente dentro .swiper ci sta un query selector

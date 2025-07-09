@@ -913,3 +913,60 @@ body {
     height: 120px;
     width: 120px;
 }
+
+
+/*-------------------------------WARHAMMER-STORY-PAGE.BLADE TRASLAZIONE FOTO -----------------------------------------*/
+
+/* Contenitore esterno della card: definisce dimensioni massime e abilita la prospettiva 3D */
+.flip-card {
+    width: 100%;
+    /* Occupa tutta la larghezza disponibile del contenitore Bootstrap */
+    max-width: 400px;
+    /* Limite massimo per mantenere un buon aspetto visivo */
+    perspective: 1000px;
+    /* Aggiunge profondità per l'effetto 3D del flip */
+}
+
+/* Contenitore interno che si ruota su se stesso */
+.flip-inner {
+    position: relative;
+    /* Necessario per posizionare i figli (front/back) in assoluto */
+    width: 100%;
+    height: 300px;
+    /* Altezza fissa della card */
+
+    /* Transizione fluida sull'asse Y con una durata di 1.5s e easing morbido */
+    transition: transform 1.5s ease-in-out;
+
+    /* Mantiene i figli (front e back) sullo stesso piano 3D */
+    transform-style: preserve-3d;
+}
+
+/* Effetto hover: quando il mouse passa sopra, ruota l’interno di 180° sull’asse Y */
+.flip-card:hover .flip-inner {
+    transform: rotateY(180deg);
+}
+
+/* Entrambe le facce devono occupare la stessa posizione e dimensione */
+.flip-front,
+.flip-back {
+    position: absolute;
+    /* Le facce si sovrappongono perfettamente */
+    width: 100%;
+    height: 100%;
+
+    backface-visibility: hidden;
+    /* Nasconde il retro quando è girato all'indietro */
+}
+
+/* Lato frontale della card */
+.flip-front {
+    z-index: 2;
+    /* Si assicura che il lato frontale stia davanti finché non ruota */
+}
+
+/* Lato posteriore della card */
+.flip-back {
+    transform: rotateY(180deg);
+    /* Ruota il lato posteriore in modo che sia visibile dopo la rotazione */
+}
