@@ -51,6 +51,26 @@
                             </a>
                         </li>
                     @endif
+
+                    <!-- Dropdown menu con tutte le categorie -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ __('ui.categories') }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach ($categories as $category)
+                                <li>
+                                    <a class="dropdown-item text-capitalize" href="{{ route('byCategory', ['category' => $category->id]) }}">
+                                        {{ __("ui." . strtolower($category->name)) }}
+                                    </a>
+                                </li>
+                                <!-- Divisore tra categorie, esclusa l’ultima -->
+                                @if (!$loop->last)
+                                    <hr class="dropdown-divider">
+                                @endif
+                            @endforeach
+                        </ul>
+                    </li>
                 @endauth
 
                 <!-- Elementi visibili solo agli utenti non autenticati -->
@@ -86,7 +106,6 @@
                                 <li>
                                     <a class="dropdown-item text-capitalize" href="{{ route('byCategory', ['category' => $category->id]) }}">
                                         {{ __("ui." . strtolower($category->name)) }}
-
                                     </a>
                                 </li>
                                 <!-- Divisore tra categorie, esclusa l’ultima -->
@@ -98,11 +117,21 @@
                     </li>
                 @endguest
 
-                <!-- Barra di ricerca (visibile sempre) USER STORY 10 -->
-                <form class="d-flex" role="search" method="GET" action="{{ route('article.search') }}">
-                    <div class="input-group">
-                        <input type="search" name="query" class="form-control" placeholder="Search" aria-label="search">
-                        <button type="submit" class="input-group btn btn-outline-success" id="basic-addon2">Search</button>
+                <!-- Barra di ricerca con Bootstrap - USER STORY 10 -->
+                <form class="d-flex justify-content-center my-3" role="search" method="GET" action="{{ route('article.search') }}">
+                    <div class="input-group input-group-sm" style="max-width: 450px; width: 100%;">
+                        <input 
+                            type="search" 
+                            name="query" 
+                            class="form-control rounded-start" 
+                            placeholder="Find all..." 
+                            aria-label="search">
+                        <button 
+                            type="submit" 
+                            class="btn btn-warning rounded-end" 
+                            id="basic-addon2">
+                            Find all
+                        </button>
                     </div>
                 </form>
 
@@ -113,12 +142,10 @@
                     <x-_locale lang="en" />
                     <x-_locale lang="es" />
                 </li>
-
             </ul>
         </div>
     </div>
 </nav>
-
 
 {{--  
  Questo codice crea un menu a discesa (dropdown) per la navbar con l'elenco delle categorie,
@@ -127,10 +154,7 @@
  in ogni iterazione del ciclo tranne l'ultima 
 --}}
 
-
-
-
-{{--
+{{-- 
     CAMBIO LINGUE     ----- USER STORY 4 --------
     Come vediamo, stiamo richiamando il componente _locale con l’attributo lang, che nel componente diventerà la variabile $lang che
     notavamo in precedenza: il valore di lang sarà, nel nostro caso, rispettivamente, it, en e es, ovvero italiano e inglese, le lingue richieste, e
@@ -138,4 +162,3 @@
     Questa stringa servirà a specificare quale bandiera far visualizzare.
     Passiamo dunque alla gestione del cambio lingua vero e proprio.
 --}}
-

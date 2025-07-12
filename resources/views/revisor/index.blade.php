@@ -40,83 +40,77 @@
                                        : $image->getUrl();
                             @endphp
 
-                 <div class="col-6 col-md-4 mb-4">
-    {{-- Mostro l'immagine vera e propria --}}
-    <img
-      src="{{ $url }}"
-      class="img-fluid rounded shadow"
-      style="width: 300px; height: 300px; object-fit: cover;"
-      alt="Immagine {{ $key + 1 }} dell’articolo {{ $article_to_check->title }}">
-</div>
+                            <div class="col-12 col-md-10 col-lg-8 mx-auto">
+                                <div class="row g-3 align-items-center border rounded shadow p-3 bg-light">
+                                    
+                                    <div class="col-12 col-md-4 text-center">
+                                        {{-- Mostro l'immagine vera e propria --}}
+                                        <img
+                                          src="{{ $url }}"
+                                          class="img-fluid rounded shadow-sm border"
+                                          style="width: 300px; height: 300px; object-fit: cover;"
+                                          alt="Immagine {{ $key + 1 }} dell’articolo {{ $article_to_check->title }}">
+                                    </div>
 
-{{-- USER STORY 7 PUNTO 13 --}}
-<div class="col-md-5 ps-3">
-    <div class="card-body">
-        <h5>Labels</h5>
-        @if ($image->labels)
-           @foreach ($image->labels as $label)
-               <span class="badge bg-primary me-1">#{{ $label }}</span>
-           @endforeach
-        @else
-           <p class="fst-italic">No labels</p>
-        @endif
-    </div>
-{{-- USER STORY 7 PUNTO 13 FINE --}}
-</div>
+                                    {{-- USER STORY 7 PUNTO 13 --}}
+                                    <div class="col-12 col-md-3 ps-md-3">
+                                        <div class="card-body">
+                                            <h5 class="mb-3">Labels</h5>
+                                            @if ($image->labels)
+                                               @foreach ($image->labels as $label)
+                                                   <span class="badge bg-primary me-1 mb-1">#{{ $label }}</span>
+                                               @endforeach
+                                            @else
+                                               <p class="fst-italic">No labels</p>
+                                            @endif
+                                        </div>
+                                    {{-- USER STORY 7 PUNTO 13 FINE --}}
+                                    </div>
 
-{{-- USER STORY 7 PUNTO 9 --}}
-<div class="col-md-8 p-3">
-    <div class="card-body">
-        <h5 class="card-title">Ratings</h5>
+                                    {{-- USER STORY 7 PUNTO 9 --}}
+                                    <div class="col-12 col-md-5 p-3 bg-white rounded shadow-sm">
+                                        <div class="card-body">
+                                            <h5 class="card-title mb-3">Ratings</h5>
 
-        <div class="row justify-content-center align-items-center mb-2">
-            <div class="col-2 text-center fw-bold">{{ $image->adult }}</div>
-            <div class="col-10">
-                <span class="badge bg-danger">adult</span>
-            </div>
-        </div>
+                                            <div class="row justify-content-center align-items-center mb-2">
+                                                <div class="col-3 text-center fw-bold">{{ $image->adult }}</div>
+                                                <div class="col-9">
+                                                    <span class="badge bg-danger">adult</span>
+                                                </div>
+                                            </div>
 
-        <div class="row justify-content-center align-items-center mb-2">
-            <div class="col-2 text-center fw-bold">{{ $image->violence }}</div>
-            <div class="col-10">
-                <span class="badge bg-warning text-dark">violence</span>
-            </div>
-        </div>
+                                            <div class="row justify-content-center align-items-center mb-2">
+                                                <div class="col-3 text-center fw-bold">{{ $image->violence }}</div>
+                                                <div class="col-9">
+                                                    <span class="badge bg-warning text-dark">violence</span>
+                                                </div>
+                                            </div>
 
-        <div class="row justify-content-center align-items-center mb-2">
-            <div class="col-2 text-center fw-bold">{{ $image->spoof }}</div>
-            <div class="col-10">
-                <span class="badge bg-info text-dark">spoof</span>
-            </div>
-        </div>
+                                            <div class="row justify-content-center align-items-center mb-2">
+                                                <div class="col-3 text-center fw-bold">{{ $image->spoof }}</div>
+                                                <div class="col-9">
+                                                    <span class="badge bg-info text-dark">spoof</span>
+                                                </div>
+                                            </div>
 
-        <div class="row justify-content-center align-items-center mb-2">
-            <div class="col-2 text-center fw-bold">{{ $image->racy }}</div>
-            <div class="col-10">
-                <span class="badge bg-warning text-dark">racy</span>
-            </div>
-        </div>
+                                            <div class="row justify-content-center align-items-center mb-2">
+                                                <div class="col-3 text-center fw-bold">{{ $image->racy }}</div>
+                                                <div class="col-9">
+                                                    <span class="badge bg-warning text-dark">racy</span>
+                                                </div>
+                                            </div>
 
-        <div class="row justify-content-center align-items-center mb-2">
-            <div class="col-2 text-center fw-bold">{{ $image->medical }}</div>
-            <div class="col-10">
-                <span class="badge bg-secondary">medical</span>
-            </div>
-        </div>
-    </div> 
-</div> 
-
-
-
-{{-- 
-     Come vediamo, al posto dei semplici tag img finora generati nel foreach , adesso per ogni
-     immagine associata all’articolo generiamo una
-     card, che, oltre all’immagine, che farà visualizzare le icone salvate nel database dal job.  --}}
-
-{{-- USER STORY 7 PUNTO 9 FINE --}}
-
-
-
+                                            <div class="row justify-content-center align-items-center mb-0">
+                                                <div class="col-3 text-center fw-bold">{{ $image->medical }}</div>
+                                                <div class="col-9">
+                                                    <span class="badge bg-secondary">medical</span>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                    {{-- USER STORY 7 PUNTO 9 FINE --}}
+                                </div>
+                            </div>
 
                         @endforeach
                     @else

@@ -17,13 +17,17 @@
         </div>          
       @endif
 
-      @auth
-        <a class="btn btn-primary btn-dark" href="{{ route('create.article') }}">{{ __('ui.create_new_article') }}</a>
-      @endauth
+     @auth
+  <a class="btn btn-primary btn-dark d-flex align-items-center justify-content-center h-100" href="{{ route('create.article') }}">
+    {{ __('ui.create_new_article') }}
+  </a>
+@endauth
 
-      <a href="{{ route('warhammer.story') }}" class="btn btn-warning mt-3">
-  Scopri la storia di Warhammer
+<a href="{{ route('warhammer.story') }}" class="btn btn-warning mt-3 d-flex align-items-center justify-content-center h-100">
+  {{ __('ui.discover_game_phases') }}
 </a>
+
+
 
     </div>
   </div>

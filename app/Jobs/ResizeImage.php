@@ -103,15 +103,15 @@ class ResizeImage implements ShouldQueue
 {
      $w = $this->w;
      $h = $this->h;
-     $srcPath = storage_path() . '/app/public/' . $this->path . '/' . $this->fileName;
-     $destPath = storage_path() . '/app/public/' . $this->path . "/crop_{$w}x{$h}_" . $this->fileName;
+     $srcPath = storage_path() . '/app/public/articles' . $this->path . '/' . $this->fileName;
+     $destPath = storage_path() . '/app/public/articles' . $this->path . "/crop_{$w}x{$h}_" . $this->fileName;
 
      Image::load($srcPath)
         ->crop($w, $h, CropPosition::Center)
 
         //............... USER STORY 9 PUNTO 1 INIZIO.......................
         ->watermark(
-          base_path('resources/img/watermark.png'),
+          base_path('resources/img2/watermark.png'),
           width: 50,
           height: 50,
           paddingX: 5,
