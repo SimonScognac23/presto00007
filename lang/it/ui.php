@@ -54,7 +54,7 @@ return [
     'revisor_zone'            => 'Zona Revisore',
     'register'                => 'Registrati',
     'reject'                  => 'Rifiuta',
-    'searchResults'           => 'Risultati per la ricerca',
+    'searchResults'           => 'Risultati per la tua ricerca',
     'select_category'         => 'Seleziona una categoria',
     'space_marines'           => 'Space Marines',
     'sisters_of_battle'       => 'Sorelle della Battaglia',
